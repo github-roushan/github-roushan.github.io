@@ -18,7 +18,7 @@ function App() {
         </div>
       </header>
       <footer className="App-footer">
-        <p>&copy; 2024.  All rights reserved.</p>
+        <p>&copy; 2024. All rights reserved.</p>
         <p>Made with ❤️ and React!</p>
       </footer>
     </div>
