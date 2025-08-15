@@ -17,7 +17,6 @@ This site showcases my projects, skills, and a bit about me. Built with ❤️ u
 ## 🛠️ Technologies Used
 
 - **Frontend**: [React.js](https://reactjs.org/)
-- **Backend**: [Node.js](https://nodejs.org/)
 - **Styling**: CSS, Tailwind, or Styled Components (TBD)
 
 ---
