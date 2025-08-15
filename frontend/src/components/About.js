@@ -14,29 +14,37 @@ const About = () => {
         </p>
       </div>
       
-      <div className="mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">My <span className="text-cyan">Skills</span></h2>
-        <motion.div 
-          className="flex flex-wrap justify-center"
-          initial="hidden"
-          animate="visible"
-          variants={{
-            visible: { transition: { staggerChildren: 0.1 } }
-          }}
-        >
-          {skills.map((skill, index) => (
+      <div>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">My <span className="text-cyan">Skills</span></h2>
+        {Object.entries(skills).map(([category, skillList]) => (
+          <div key={category} className="mb-12">
+            <h3 className="text-2xl font-bold text-purple mb-6 text-center">{category}</h3>
             <motion.div 
-              key={index} 
-              className="bg-gray-800 text-white font-semibold py-2 px-5 rounded-lg m-2 shadow-lg"
+              className="flex flex-wrap justify-center"
+              initial="hidden"
+              animate="visible"
               variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 }
+                visible: { transition: { staggerChildren: 0.05 } }
               }}
             >
-              {skill}
+              {skillList.map((skill, index) => (
+                <motion.div 
+                  key={index} 
+                  className="bg-gray-800 text-white font-semibold py-3 px-6 rounded-lg m-2 shadow-lg flex items-center space-x-3"
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 }
+                  }}
+                  whileHover={{ scale: 1.1, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  {skill.icon && <span className="text-2xl">{skill.icon}</span>}
+                  <span>{skill.name}</span>
+                </motion.div>
+              ))}
             </motion.div>
-          ))}
-        </motion.div>
+          </div>
+        ))}
       </div>
       
       <div className="text-center">
