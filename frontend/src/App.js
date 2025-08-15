@@ -6,7 +6,6 @@ import About from './components/About';
 import Projects from './components/Projects';
 import Blog from './components/Blog';
 import BlogPost from './components/BlogPost';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
 import { motion } from "framer-motion";
 
@@ -43,7 +42,6 @@ function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/contact" element={<Contact />} />
           </Routes>
         </motion.main>
         <Footer />
