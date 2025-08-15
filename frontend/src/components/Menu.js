@@ -29,6 +29,7 @@ const Menu = ({ close }) => {
       <nav className="text-center space-y-8 mb-16">
         <motion.div variants={navLinkVariants}><NavLink to="/" onClick={close} className="text-5xl font-bold text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-dark-primary transition-colors">Home</NavLink></motion.div>
         <motion.div variants={navLinkVariants}><NavLink to="/about" onClick={close} className="text-5xl font-bold text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-dark-primary transition-colors">About</NavLink></motion.div>
+        <motion.div variants={navLinkVariants}><NavLink to="/skills" onClick={close} className="text-5xl font-bold text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-dark-primary transition-colors">Skills</NavLink></motion.div>
         <motion.div variants={navLinkVariants}><NavLink to="/projects" onClick={close} className="text-5xl font-bold text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-dark-primary transition-colors">Projects</NavLink></motion.div>
         <motion.div variants={navLinkVariants}><NavLink to="/blog" onClick={close} className="text-5xl font-bold text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-dark-primary transition-colors">Blog</NavLink></motion.div>
       </nav>
