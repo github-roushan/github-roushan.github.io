@@ -4,7 +4,7 @@ import { FaAws } from 'react-icons/fa';
 import {
   SiPython, SiCplusplus, SiOpenjdk, SiGo, SiRust, SiTypescript, SiPerl,
   SiSpringboot, SiReact, SiNodedotjs, SiFlutter, SiTensorflow, SiScikitlearn,
-  SiBoost, SiSfml, SiGrpc, SiProtobuf, SiJasmine, SiJunit5, SiSelenium,
+  SiBoost, SiSfml, SiJasmine, SiJunit5, SiSelenium,
   SiMongodb, SiNeo4J, SiMysql, SiPostgresql, SiInfluxdb,
   SiGooglecloud, SiFirebase, SiDocker, SiGit, SiApachecassandra, SiAmazondynamodb,
   SiKubernetes
