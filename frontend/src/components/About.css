@@ -1,0 +1,21 @@
+@keyframes jitter {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-0.4px);
+  }
+  50% {
+    transform: translateY(0.3px);
+  }
+  75% {
+    transform: translateY(-0.1px);
+  }
+}
+
+.jitter {
+  /* Apply the jitter animation after the initial typing animation */
+  animation: jitter 0.3s infinite;
+  /* Stagger the start of the jitter for a more random feel */
+  animation-delay: var(--delay);
+}

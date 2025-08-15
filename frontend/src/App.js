@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-background text-white font-sans">
+      <div className="flex flex-col min-h-screen bg-background text-text font-sans">
         <Navbar />
         <motion.main
           className="flex-grow"

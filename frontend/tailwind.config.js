@@ -6,16 +6,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'background': '#282a36',
-        'cyan': '#8be9fd',
-        'orange': '#ffb86c', // Replaced pink with orange
-        'purple': '#bd93f9',
+        'background': '#f0f2f5',
+        'text': '#111827',
+        'primary': '#3b82f6', // Vibrant Blue
+        'secondary': '#10b981', // Vibrant Green
+        'accent': '#f97316', // Vibrant Orange
       },
       fontFamily: {
         sans: ["Poppins", ...defaultTheme.fontFamily.sans],
       },
       textShadow: {
-        'glow': '0 0 5px rgba(255, 184, 108, 0.5), 0 0 10px rgba(255, 184, 108, 0.5)', // Adjusted glow for orange
+        'glow': '0 2px 8px rgba(59, 130, 246, 0.3)', // A subtle shadow for the primary color
       },
     },
   },
