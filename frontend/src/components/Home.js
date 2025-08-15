@@ -11,18 +11,16 @@ const Home = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-5xl md:text-6xl font-bold">Roushan Kumar</h1>
+        <h1 className="text-5xl md:text-6xl font-bold">
+          Hi, I'm <span className="text-orange text-shadow-glow">Roushan</span>.
+        </h1>
         <p className="text-xl md:text-2xl mt-4 text-gray-400">Software Engineer | AI/ML Enthusiast</p>
         <p className="mt-6 max-w-xl mx-auto md:mx-0">
-        I’m a software engineer specializing in building robust, scalable backend and distributed systems.
-        Now, I’m diving into the fascinating world of machine learning to push my craft even further.
+          I’m a software engineer specializing in building robust, scalable backend and distributed systems. Now, I’m diving into the fascinating world of machine learning to push my craft even further.
         </p>
         <div className="mt-8">
-          <Link to="/projects" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full mr-4 transition-colors">
-            View Projects
-          </Link>
-          <Link to="/contact" className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-full transition-colors">
-            Contact Me
+          <Link to="/projects" className="bg-orange hover:bg-orange/80 text-white font-bold py-3 px-6 rounded-full transition-colors">
+            View My Work
           </Link>
         </div>
       </motion.div>

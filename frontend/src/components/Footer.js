@@ -9,14 +9,14 @@ const Footer = () => {
           <a href="https://github.com/github-roushan" target="_blank" rel="noopener noreferrer" className="hover:text-white">
             <FaGithub size={24} />
           </a>
-          <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+          <a href="https://www.linkedin.com/in/pro-coder-roshu/" target="_blank" rel="noopener noreferrer" className="hover:text-white">
             <FaLinkedin size={24} />
           </a>
-          <a href="https://twitter.com/procoder9973" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+          <a href="https://x.com/Roushan01550155" target="_blank" rel="noopener noreferrer" className="hover:text-white">
             <FaTwitter size={24} />
           </a>
         </div>
-        <p>&copy; {new Date().getFullYear()} Roushan Kumar. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()}. All rights reserved.</p>
       </div>
     </footer>
   );
