@@ -6,14 +6,15 @@ import {
   SiSpringboot, SiReact, SiNodedotjs, SiFlutter, SiTensorflow, SiScikitlearn,
   SiBoost, SiSfml, SiGrpc, SiProtobuf, SiJasmine, SiJunit5, SiSelenium,
   SiMongodb, SiNeo4J, SiMysql, SiPostgresql, SiInfluxdb,
-  SiGooglecloud, SiFirebase, SiDocker, SiGit, SiApachecassandra, SiAmazondynamodb
+  SiGooglecloud, SiFirebase, SiDocker, SiGit, SiApachecassandra, SiAmazondynamodb,
+  SiKubernetes
 } from 'react-icons/si';
 import GrpcIcon from '../assets/GrpcIcon';
 import ProtobufIcon from '../assets/ProtobufIcon';
 
 export const skills = {
   "Programming Languages": [
-    { name: "Python", icon: <SiPython className="text-blue-400" /> },
+    { name: "Python", icon: <SiPython className="text-yellow-300" /> },
     { name: "C++", icon: <SiCplusplus className="text-blue-600" /> },
     { name: "Java", icon: <SiOpenjdk className="text-red-500" /> },
     { name: "Golang", icon: <SiGo className="text-cyan-500" /> },
@@ -53,6 +54,7 @@ export const skills = {
     { name: "GCP", icon: <SiGooglecloud className="text-blue-500" /> },
     { name: "Firebase", icon: <SiFirebase className="text-yellow-500" /> },
     { name: "Docker", icon: <SiDocker className="text-blue-500" /> },
+    { name: "Kubernetes", icon: <SiKubernetes className="text-blue-600" /> },
     { name: "Git", icon: <SiGit className="text-red-500" /> }
   ],
   "Other Technical Skills": [
