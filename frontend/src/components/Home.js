@@ -12,9 +12,10 @@ const Home = () => {
         transition={{ duration: 0.5 }}
       >
         <h1 className="text-5xl md:text-6xl font-bold">Roushan Kumar</h1>
-        <p className="text-xl md:text-2xl mt-4 text-gray-400">Software Developer | Tech Blogger</p>
+        <p className="text-xl md:text-2xl mt-4 text-gray-400">Software Engineer | AI/ML Enthusiast</p>
         <p className="mt-6 max-w-xl mx-auto md:mx-0">
-          I build beautiful and responsive web applications. Welcome to my digital garden.
+        I’m a software engineer specializing in building robust, scalable backend and distributed systems.
+        Now, I’m diving into the fascinating world of machine learning to push my craft even further.
         </p>
         <div className="mt-8">
           <Link to="/projects" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full mr-4 transition-colors">
@@ -31,7 +32,7 @@ const Home = () => {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <img src="https://via.placeholder.com/400" alt="Profile" className="rounded-full mx-auto" />
+        <img src="/images/robot1.png" alt="Profile" className="rounded-full mx-auto w-80 h-80 object-cover" />
       </motion.div>
     </div>
   );
