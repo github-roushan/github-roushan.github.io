@@ -1,27 +1,38 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import About from './components/About';
+import Projects from './components/Projects';
+import Blog from './components/Blog';
+import BlogPost from './components/BlogPost';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import { motion } from "framer-motion";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>🚀 Personal Website Coming Soon! 🌐</h1>
-        <p>We're working hard behind the scenes to bring you the project portfolio and tech blog.</p>
-        <p>In the meantime, you can connect with us or follow us on our social media platforms.</p>
-        <div className="cta-container">
-          <a href="https://x.com/procoder9973" className="cta-button" target="_blank" rel="noopener noreferrer">
-            Follow us on X
-          </a>
-          <a href="https://github.com/github-roushan" className="cta-button" target="_blank" rel="noopener noreferrer">
-            Check out our GitHub
-          </a>
-        </div>
-      </header>
-      <footer className="App-footer">
-        <p>&copy; {(new Date()).getFullYear()}. All rights reserved.</p>
-        <p>Made with ❤️ and React!</p>
-      </footer>
-    </div>
+    <Router>
+      <div className="flex flex-col min-h-screen bg-gray-900 text-white font-sans">
+        <Navbar />
+        <motion.main
+          className="flex-grow"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </motion.main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
