@@ -36,7 +36,7 @@ const Menu = ({ close }) => {
 
       <div className="flex space-x-6">
         <a href="https://github.com/github-roushan" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-text dark:text-gray-400 dark:hover:text-dark-text"><FaGithub size={24} /></a>
-        <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-text dark:text-gray-400 dark:hover:text-dark-text"><FaLinkedin size={24} /></a>
+        <a href="https://www.linkedin.com/in/pro-coder-roshu/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-text dark:text-gray-400 dark:hover:text-dark-text"><FaLinkedin size={24} /></a>
         <a href="https://x.com/procoder973" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-text dark:text-gray-400 dark:hover:text-dark-text"><FaTwitter size={24} /></a>
       </div>
     </motion.div>
