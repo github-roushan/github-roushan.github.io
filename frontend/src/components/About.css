@@ -19,3 +19,30 @@
   /* Stagger the start of the jitter for a more random feel */
   animation-delay: var(--delay);
 }
+
+/* Subtle animated dots background for the Skills section */
+.animated-dots {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  animation: moveDots 30s linear infinite;
+}
+
+.dark .animated-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+@keyframes moveDots {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 24px 24px;
+  }
+}
+
+/* Soft divider between categories */
+.soft-divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
