@@ -1,17 +1,20 @@
 import React, { useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
-import { FaAws } from 'react-icons/fa';
+import { FaAws, FaServer, FaLaptopCode, FaProjectDiagram, FaNetworkWired, 
+  FaCogs, FaLayerGroup, FaUsersCog, FaVial, FaBrain 
+} from "react-icons/fa";
 import {
   SiPython, SiCplusplus, SiOpenjdk, SiGo, SiRust, SiTypescript, SiPerl,
   SiSpringboot, SiReact, SiNodedotjs, SiFlutter, SiTensorflow, SiScikitlearn,
   SiBoost, SiSfml, SiJasmine, SiJunit5, SiSelenium,
   SiMongodb, SiNeo4J, SiMysql, SiPostgresql, SiInfluxdb,
   SiGooglecloud, SiFirebase, SiDocker, SiGit, SiApachecassandra, SiAmazondynamodb,
-  SiKubernetes
+  SiKubernetes, SiFastapi, SiLangchain
 } from 'react-icons/si';
 import GrpcIcon from '../assets/GrpcIcon';
 import ProtobufIcon from '../assets/ProtobufIcon';
+import MockitoIcon from '../assets/MockitoIcon';
 
 // 1) Data Model (embedded as requested)
 const skillsData = {
@@ -19,7 +22,7 @@ const skillsData = {
     {
       id: 'programmingLanguages',
       name: 'Programming Languages',
-      previewSkills: ['Python', 'C++', 'Java', 'Go'],
+      previewSkills: ['Python', 'C++', 'Java', 'Rust', 'Golang'],
       fullSkillsList: [
         { name: 'Python', iconId: 'SiPython', details: 'Versatile language for backend, data science, and scripting.' },
         { name: 'C++', iconId: 'SiCplusplus', details: 'High-performance language for systems, game development, and high-frequency trading.' },
@@ -33,7 +36,7 @@ const skillsData = {
     {
       id: 'frameworks',
       name: 'Frameworks & Libraries',
-      previewSkills: ['React', 'Spring Boot', 'Node.js'],
+      previewSkills: ['React', 'Node.js', 'FastAPI', 'Spring Boot'],
       fullSkillsList: [
         { name: 'Spring Boot', iconId: 'SiSpringboot', details: 'Simplifies the creation of production-grade, stand-alone Java applications.' },
         { name: 'React', iconId: 'SiReact', details: 'A JavaScript library for building user interfaces with a component-based approach.' },
@@ -41,14 +44,14 @@ const skillsData = {
         { name: 'Flutter', iconId: 'SiFlutter', details: "Google's UI toolkit for building natively compiled applications from a single codebase." },
         { name: 'TensorFlow', iconId: 'SiTensorflow', details: 'An open-source machine learning framework for building and training models.' },
         { name: 'scikit-learn', iconId: 'SiScikitlearn', details: 'A popular Python library for machine learning, data mining, and data analysis.' },
-        { name: 'LangChain', iconId: null, details: 'A framework for developing applications powered by language models.' },
-        { name: 'Scapy', iconId: null, details: 'A powerful interactive packet manipulation program and library.' },
+        { name: 'LangChain', iconId: 'SiLangchain', details: 'A framework for developing applications powered by language models.' },
         { name: 'Boost', iconId: 'SiBoost', details: 'A set of high-quality, peer-reviewed C++ libraries.' },
         { name: 'SFML', iconId: 'SiSfml', details: 'Simple and Fast Multimedia Library for creating games and multimedia applications.' },
         { name: 'gRPC', iconId: 'GrpcIcon', details: 'A high-performance, open-source universal RPC framework.' },
         { name: 'Protobuf', iconId: 'ProtobufIcon', details: 'A language-neutral, platform-neutral, extensible mechanism for serializing structured data.' },
+        { name: 'FastAPI', iconId: 'SiFastapi', details: 'High-performance Python web framework for building APIs with automatic OpenAPI docs.' },
         { name: 'Jasmine', iconId: 'SiJasmine', details: 'A behavior-driven development framework for testing JavaScript code.' },
-        { name: 'Mockito', iconId: null, details: 'A mocking framework for unit tests in Java.' },
+        { name: 'Mockito', iconId: 'MockitoIcon', details: 'A mocking framework for unit tests in Java.' },
         { name: 'JUnit', iconId: 'SiJunit5', details: 'A widely used unit testing framework for the Java programming language.' },
         { name: 'Selenium', iconId: 'SiSelenium', details: 'A powerful tool for automating web browsers for testing.' }
       ]
@@ -85,16 +88,52 @@ const skillsData = {
       name: 'Other Technical Skills',
       previewSkills: ['System Design', 'Backend Development', 'Testing'],
       fullSkillsList: [
-        { name: 'Backend Development', iconId: null, details: 'Expertise in server-side logic, APIs, and business logic implementation.' },
-        { name: 'Frontend Development', iconId: null, details: 'Expertise in user-facing web development with a focus on UI/UX.' },
-        { name: 'System Design', iconId: null, details: 'Designing and architecting complex software systems.' },
-        { name: 'Distributed Systems', iconId: null, details: 'Building systems where components are on different networked computers.' },
-        { name: 'Networking', iconId: null, details: 'Understanding of network protocols, security, and infrastructure.' },
-        { name: 'Design Patterns', iconId: null, details: 'Knowledge of standard solutions to common software design problems.' },
-        { name: 'Concurrency', iconId: null, details: 'Managing multiple computations at the same time for increased performance.' },
-        { name: 'Testing', iconId: null, details: 'Implementing unit, integration, and end-to-end tests for quality assurance.' },
-        { name: 'Machine Learning', iconId: null, details: 'Experience with building and deploying machine learning models.' }
-      ]
+        { 
+          name: 'Backend Development', 
+          iconId: 'FaServer', 
+          details: 'Expertise in server-side logic, APIs, and business logic implementation.' 
+        },
+        { 
+          name: 'Frontend Development', 
+          iconId: 'FaLaptopCode', 
+          details: 'Expertise in user-facing web development with a focus on UI/UX.' 
+        },
+        { 
+          name: 'System Design', 
+          iconId: 'FaProjectDiagram', 
+          details: 'Designing and architecting complex software systems.' 
+        },
+        { 
+          name: 'Distributed Systems', 
+          iconId: 'FaLayerGroup', 
+          details: 'Building systems where components are on different networked computers.' 
+        },
+        { 
+          name: 'Networking', 
+          iconId: 'FaNetworkWired', 
+          details: 'Understanding of network protocols, security, and infrastructure.' 
+        },
+        { 
+          name: 'Design Patterns', 
+          iconId: 'FaCogs', 
+          details: 'Knowledge of standard solutions to common software design problems.' 
+        },
+        { 
+          name: 'Concurrency', 
+          iconId: 'FaUsersCog', 
+          details: 'Managing multiple computations at the same time for increased performance.' 
+        },
+        { 
+          name: 'Testing', 
+          iconId: 'FaVial', 
+          details: 'Implementing unit, integration, and end-to-end tests for quality assurance.' 
+        },
+        { 
+          name: 'Machine Learning', 
+          iconId: 'FaBrain', 
+          details: 'Experience with building and deploying machine learning models.' 
+        }
+      ]      
     }
   ]
 };
@@ -133,7 +172,19 @@ const iconComponentMap = {
   SiApachecassandra,
   SiAmazondynamodb,
   SiKubernetes,
-  FaAws
+  FaAws,
+  FaServer,
+  FaLaptopCode,
+  FaProjectDiagram,
+  FaNetworkWired,
+  FaCogs,
+  FaLayerGroup,
+  FaUsersCog,
+  FaVial,
+  FaBrain,
+  SiFastapi,
+  SiLangchain,
+  MockitoIcon,
 };
 
 const getIconById = (iconId, className = 'w-6 h-6 text-primary dark:text-dark-primary') => {
@@ -153,31 +204,72 @@ const findIconIdForSkillName = (category, skillName) => {
   return match ? match.iconId : null;
 };
 
+const LiveSkillTile = ({ skill, isFlipping, isProgramming }) => {
+  const containerSize = isProgramming ? '' : 'w-8 h-8';
+  const iconSize = isProgramming ? 'w-full h-auto' : 'w-7 h-7';
+
+  return (
+    <div className={`flex items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-800 ${isFlipping ? 'flip-out' : 'flip-in'} ${containerSize}`}>
+      {getIconById(skill.iconId, `${iconSize} text-primary dark:text-dark-primary`) || <span className="text-xs text-zinc-400">N/A</span>}
+    </div>
+  );
+};
+
 // 4) UI Components
 const SkillTile = ({ category, onSelect }) => {
-  const previewIcons = useMemo(() => {
-    return (category.previewSkills || []).map(name => getIconById(
-      findIconIdForSkillName(category, name),
-      'w-6 h-6 md:w-7 md:h-7 text-primary dark:text-dark-primary'
-    ));
-  }, [category]);
+  const [skillIndices, setSkillIndices] = useState(() => Array.from({ length: 5 }, (_, i) => i));
+  const [flippingIndex, setFlippingIndex] = useState(-1);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const tileIndexToUpdate = Math.floor(Math.random() * 5);
+      
+      setFlippingIndex(tileIndexToUpdate);
+
+      setTimeout(() => {
+        setSkillIndices(prevIndices => {
+          const newIndices = [...prevIndices];
+          
+          let nextSkillIndex;
+          do {
+            nextSkillIndex = Math.floor(Math.random() * category.fullSkillsList.length);
+          } while (newIndices.includes(nextSkillIndex));
+          
+          newIndices[tileIndexToUpdate] = nextSkillIndex;
+          return newIndices;
+        });
+        setFlippingIndex(-1);
+      }, 300);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [category.fullSkillsList.length]);
+
+  const isProgramming = category.id === 'programmingLanguages';
+  const containerLayout = isProgramming
+    ? 'grid grid-cols-[repeat(auto-fit,minmax(48px,1fr))]'
+    : 'flex flex-wrap';
 
   return (
     <motion.button
       onClick={() => onSelect(category.id)}
       className="w-full h-full rounded-xl bg-white/80 dark:bg-zinc-900/80 shadow-sm border border-zinc-200/50 dark:border-zinc-700/50 p-4 flex flex-col justify-between hover:shadow-md transition-shadow"
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 17 }}
     >
       <div className="text-left">
         <div className="text-xs tracking-wide text-zinc-500 dark:text-zinc-400 uppercase">Category</div>
         <div className="text-lg md:text-xl font-semibold mt-1 text-zinc-800 dark:text-zinc-100">{category.name}</div>
       </div>
-      <div className="flex gap-3 mt-4 flex-wrap">
-        {previewIcons.map((icon, idx) => (
-          <div key={idx} className="w-8 h-8 flex items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-800">
-            {icon || <span className="text-xs text-zinc-400">N/A</span>}
-          </div>
+      <div className={`${containerLayout} gap-3 mt-4`}>
+        {skillIndices.map((skillIndex, idx) => (
+          <LiveSkillTile
+            key={idx}
+            skill={category.fullSkillsList[skillIndex]}
+            isFlipping={flippingIndex === idx}
+            isProgramming={isProgramming}
+          />
         ))}
       </div>
     </motion.button>
@@ -224,7 +316,7 @@ const SkillCard = ({ skill }) => {
       className="h-28 rounded-xl border border-zinc-200/60 dark:border-zinc-700/60 bg-white/80 dark:bg-zinc-900/80 p-4 flex items-center gap-4 overflow-hidden"
     >
       <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-800 shrink-0">
-        {getIconById(skill.iconId, 'w-6 h-6 text-primary dark:text-dark-primary') || (
+        {getIconById(skill.iconId, 'w-8 h-8 text-primary dark:text-dark-primary') || (
           <span className="text-xs text-zinc-400">N/A</span>
         )}
       </div>

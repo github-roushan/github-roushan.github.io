@@ -22,7 +22,8 @@ module.exports = {
         'dark-accent': '#ce9178',
       },
       fontFamily: {
-        sans: ["Poppins", ...defaultTheme.fontFamily.sans],
+        sans: ["Roboto", ...defaultTheme.fontFamily.sans],
+        serif: ["Roboto Slab", ...defaultTheme.fontFamily.serif],
       },
       textShadow: {
         'glow': '0 2px 8px rgba(59, 130, 246, 0.3)', 

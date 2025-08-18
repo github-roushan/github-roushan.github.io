@@ -25,7 +25,7 @@ const Courses = () => {
   return (
     <section id="courses" className="courses-section">
       <div className="courses-container">
-        <h1 className="courses-title">Courses</h1>
+        <h1 className="courses-title font-serif">Courses</h1>
         <p className="courses-description">
           Here are some of the courses I've taken. You can filter them by
           category.
@@ -40,7 +40,7 @@ const Courses = () => {
           {categories.map((category) => (
             <button
               key={category}
-              className={`filter-button ${
+              className={`filter-button with-ripple ${
                 filters.includes(category) ? "active" : ""
               }`}
               onClick={() => handleFilterClick(category)}
@@ -51,7 +51,7 @@ const Courses = () => {
         </div>
         <div className="courses-grid">
           {filteredCourses.map((course, index) => (
-            <div key={index} className="course-card">
+            <div key={index} className="course-card md-elevation-2">
               <div className="course-icon">{course.icon}</div>
               <h2 className="course-card-title">{course.title}</h2>
               <p className="course-card-description">{course.description}</p>

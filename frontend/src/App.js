@@ -30,7 +30,7 @@ function App() {
 
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-background text-text font-sans dark:bg-dark-background dark:text-dark-text">
+      <div className="flex flex-col min-h-screen bg-background text-text font-sans dark:bg-dark-background dark:text-dark-text border-none">
         <Navbar toggleTheme={toggleTheme} theme={theme} />
         <motion.main
           className="flex-grow"
@@ -48,6 +48,7 @@ function App() {
             <Route path="/courses" element={<Courses />} />
           </Routes>
         </motion.main>
+
         <Footer />
       </div>
     </Router>
