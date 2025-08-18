@@ -1,0 +1,117 @@
+.courses-section {
+  padding: 4rem 2rem;
+  background-color: #f9fafb;
+  text-align: center;
+}
+
+.dark .courses-section {
+  background-color: #111827;
+}
+
+.courses-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.courses-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.courses-description {
+  font-size: 1.125rem;
+  color: #6b7280;
+  margin-bottom: 2rem;
+}
+
+.dark .courses-description {
+    color: #9ca3af;
+}
+
+.courses-filter-buttons {
+  margin-bottom: 2rem;
+}
+
+.filter-button {
+  background-color: #e5e7eb;
+  color: #374151;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  margin: 0 0.5rem;
+  font-weight: 600;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dark .filter-button {
+  background-color: #374151;
+  color: #d1d5db;
+}
+
+.filter-button:hover {
+  background-color: #d1d5db;
+}
+
+.dark .filter-button:hover {
+  background-color: #4b5563;
+}
+
+.filter-button.active {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.course-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: left;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.dark .course-card {
+  background-color: #1f2937;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.course-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.course-card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.course-card-description {
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+.dark .course-card-description {
+    color: #9ca3af;
+}
+
+.course-certificate-link {
+  color: #3b82f6;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.course-certificate-link:hover {
+  color: #2563eb;
+}

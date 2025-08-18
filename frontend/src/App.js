@@ -8,6 +8,7 @@ import Skills from './components/Skills';
 import Blog from './components/Blog';
 import BlogPost from './components/BlogPost';
 import Footer from './components/Footer';
+import Courses from './components/Courses';
 import { motion } from "framer-motion";
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/courses" element={<Courses />} />
           </Routes>
         </motion.main>
         <Footer />
