@@ -1,0 +1,248 @@
+/* Academic Bookshelf Theme */
+
+.bookshelf-page {
+  --cream: #F5F5DC;
+  --ink: #1c1c1c;
+  --muted-ink: #555555;
+  --paper: #ffffff;
+  --border: rgba(0,0,0,0.08);
+  --shadow: rgba(0,0,0,0.08);
+
+  --accent-blue: #192A56;
+  --accent-green: #2F4F2F;
+  --accent-burgundy: #800020;
+
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'EB Garamond', Garamond, Palatino, 'Times New Roman', serif;
+}
+
+.bookshelf-page .ui-font {
+  font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+.bookshelf-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .bookshelf-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.section-heading {
+  font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--accent-blue);
+}
+
+.filter-bar {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .filter-bar {
+    grid-template-columns: 1fr;
+  }
+}
+
+.filter-bar .control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+}
+
+.filter-bar input[type="text"] {
+  all: unset;
+  flex: 1;
+  font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--ink);
+}
+
+.filter-bar select {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--ink);
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 1.25rem;
+}
+
+.book-card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px var(--shadow);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  cursor: pointer;
+}
+
+.book-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+}
+
+.book-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background: linear-gradient(135deg, rgba(25,42,86,0.1), rgba(128,0,32,0.08));
+  display: grid;
+  place-items: center;
+}
+
+.book-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.book-cover .placeholder-initial {
+  font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: rgba(25,42,86,0.8);
+}
+
+.book-meta {
+  padding: 0.75rem 0.9rem 1rem;
+}
+
+.book-title {
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.book-author {
+  font-size: 0.9rem;
+  color: var(--muted-ink);
+}
+
+.book-description {
+  font-size: 0.9rem;
+  color: var(--muted-ink);
+}
+
+.book-date {
+  font-size: 0.8rem;
+  color: var(--muted-ink);
+}
+
+.progress-outer {
+  width: 100%;
+  height: 8px;
+  background: rgba(0,0,0,0.06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-inner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-burgundy), var(--accent-blue));
+  border-radius: 999px;
+}
+
+.sidebar {
+  position: sticky;
+  top: 5.5rem;
+  align-self: start;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 6px 18px var(--shadow);
+}
+
+.sidebar .item {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.sidebar .thumb {
+  width: 54px;
+  height: 81px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(47,79,47,0.2), rgba(128,0,32,0.1));
+  overflow: hidden;
+}
+
+.sidebar .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Modal */
+.bs-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: grid;
+  place-items: center;
+  z-index: 90;
+}
+
+.bs-modal {
+  width: min(880px, 92vw);
+  max-height: 88vh;
+  overflow: auto;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+}
+
+.bs-modal header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.bs-modal .content {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fafaf8;
+}
+
+.quote {
+  font-style: italic;
+  color: var(--muted-ink);
+  border-left: 3px solid var(--accent-green);
+  padding-left: 0.75rem;
+}
+
+

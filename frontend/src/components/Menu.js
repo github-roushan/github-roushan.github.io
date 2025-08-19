@@ -31,6 +31,7 @@ const Menu = ({ close }) => {
         <motion.div variants={navLinkVariants}><NavLink to="/about" onClick={close} className="text-5xl font-bold text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-dark-primary transition-colors">About</NavLink></motion.div>
         <motion.div variants={navLinkVariants}><NavLink to="/skills" onClick={close} className="text-5xl font-bold text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-dark-primary transition-colors">Skills</NavLink></motion.div>
         <motion.div variants={navLinkVariants}><NavLink to="/projects" onClick={close} className="text-5xl font-bold text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-dark-primary transition-colors">Projects</NavLink></motion.div>
+        <motion.div variants={navLinkVariants}><NavLink to="/bookshelf" onClick={close} className="text-5xl font-bold text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-dark-primary transition-colors">Bookshelf</NavLink></motion.div>
         <motion.div variants={navLinkVariants}><NavLink to="/courses" onClick={close} className="text-5xl font-bold text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-dark-primary transition-colors">Courses</NavLink></motion.div>
         <motion.div variants={navLinkVariants}><NavLink to="/blog" onClick={close} className="text-5xl font-bold text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-dark-primary transition-colors">Blog</NavLink></motion.div>
       </nav>

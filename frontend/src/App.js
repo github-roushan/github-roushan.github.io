@@ -10,6 +10,7 @@ import BlogPost from './components/BlogPost';
 import Footer from './components/Footer';
 import Courses from './components/Courses';
 import { motion } from "framer-motion";
+import Bookshelf from './components/Bookshelf';
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
@@ -46,6 +47,7 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/courses" element={<Courses />} />
+            <Route path="/bookshelf" element={<Bookshelf />} />
           </Routes>
         </motion.main>
 
