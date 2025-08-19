@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import InteractiveGraph from './InteractiveGraph';
 import AnimatedName from './AnimatedName';
 
 const Home = () => {
   return (
-    <div className="container mx-auto flex flex-col md:flex-row items-center justify-center min-h-screen text-center md:text-left px-4">
+    <div className="relative">
+      <InteractiveGraph />
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-center min-h-screen text-center md:text-left px-4">
       <motion.div 
         className="md:w-1/2"
         initial={{ opacity: 0, x: -50 }}
@@ -55,6 +58,7 @@ const Home = () => {
       >
         <img src="/images/robot1.png" alt="Profile" className="rounded-full mx-auto w-80 h-80 object-cover md-elevation-3" />
       </motion.div>
+      </div>
     </div>
   );
 };
