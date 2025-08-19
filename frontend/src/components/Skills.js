@@ -199,10 +199,6 @@ const getIconById = (iconId, className = 'w-6 h-6 text-primary dark:text-dark-pr
 };
 
 // 3) Small helpers
-const findIconIdForSkillName = (category, skillName) => {
-  const match = category.fullSkillsList.find(s => s.name === skillName);
-  return match ? match.iconId : null;
-};
 
 const LiveSkillTile = ({ skill, isFlipping, isProgramming }) => {
   const containerSize = isProgramming ? '' : 'w-8 h-8';
