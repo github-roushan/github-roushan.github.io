@@ -44,12 +44,20 @@ const InteractiveGraph = () => {
           nodeFill: 'rgba(86, 156, 214, 0.9)', // dark-primary
           line: 'rgba(212, 212, 212, 0.18)', // light gray lines
           backgroundGlow: 'rgba(78, 201, 176, 0.06)',
+          highlightNode: 'rgba(78, 201, 176, 0.95)',
+          neighborNode: 'rgba(206, 145, 120, 0.9)',
+          strongEdge: 'rgba(86, 156, 214, 0.65)',
+          mediumEdge: 'rgba(86, 156, 214, 0.35)'
         };
       }
       return {
         nodeFill: 'rgba(59, 130, 246, 0.9)', // primary
         line: 'rgba(17, 24, 39, 0.14)', // slate-900 with alpha
         backgroundGlow: 'rgba(16, 185, 129, 0.05)',
+        highlightNode: 'rgba(16, 185, 129, 0.95)',
+        neighborNode: 'rgba(168, 85, 247, 0.9)',
+        strongEdge: 'rgba(59, 130, 246, 0.65)',
+        mediumEdge: 'rgba(59, 130, 246, 0.35)'
       };
     };
 
@@ -62,18 +70,18 @@ const InteractiveGraph = () => {
 
     const seedNodes = () => {
       const { innerWidth, innerHeight } = window;
-      // Density: ~1 node per 9500 px^2, capped for perf
+      // Increased density: ~1 node per 7000 px^2 (with caps)
       const area = innerWidth * innerHeight;
       const targetCount = prefersReducedMotion
-        ? Math.max(25, Math.min(60, Math.floor(area / 18000)))
-        : Math.max(40, Math.min(120, Math.floor(area / 9500)));
+        ? Math.max(35, Math.min(80, Math.floor(area / 14000)))
+        : Math.max(60, Math.min(160, Math.floor(area / 7000)));
 
       nodes = Array.from({ length: targetCount }).map(() => ({
         x: randomInRange(0, innerWidth),
         y: randomInRange(0, innerHeight),
         vx: randomInRange(-0.6, 0.6),
         vy: randomInRange(-0.6, 0.6),
-        r: randomInRange(1.4, 2.6),
+        r: randomInRange(2.0, 3.4),
         twinkle: randomInRange(0, Math.PI * 2),
       }));
     };
@@ -89,6 +97,17 @@ const InteractiveGraph = () => {
       mouse.active = false;
     };
 
+    // Geometry helpers
+    const distancePointToSegment = (px, py, x1, y1, x2, y2) => {
+      const dx = x2 - x1;
+      const dy = y2 - y1;
+      if (dx === 0 && dy === 0) return Math.hypot(px - x1, py - y1);
+      const t = Math.max(0, Math.min(1, ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy)));
+      const projX = x1 + t * dx;
+      const projY = y1 + t * dy;
+      return Math.hypot(px - projX, py - projY);
+    };
+
     // Animation
     let lastTimestamp = 0;
     const step = (timestamp) => {
@@ -99,7 +118,7 @@ const InteractiveGraph = () => {
       const delta = Math.min(dtMs, 32) / 16.6667; // normalize to ~60fps
 
       const { innerWidth, innerHeight } = window;
-      const { nodeFill, line, backgroundGlow } = getColors();
+      const { nodeFill, line, backgroundGlow, highlightNode, neighborNode, strongEdge, mediumEdge } = getColors();
 
       // Clear with slight translucency for motion trails
       context.clearRect(0, 0, innerWidth, innerHeight);
@@ -118,14 +137,12 @@ const InteractiveGraph = () => {
       context.fillStyle = gradient;
       context.fillRect(0, 0, innerWidth, innerHeight);
 
-      const connectionDistance = prefersReducedMotion ? 95 : 140;
-      const mouseInfluenceRadius = prefersReducedMotion ? 110 : 170;
+      const connectionDistance = prefersReducedMotion ? 110 : 160;
+      const mouseInfluenceRadius = prefersReducedMotion ? 120 : 190;
 
-      // Integrate physics and draw nodes
+      // 1) Integrate physics (no draw)
       for (let i = 0; i < nodes.length; i += 1) {
         const node = nodes[i];
-
-        // Attraction towards mouse
         if (mouse.active) {
           const dxToMouse = mouse.x - node.x;
           const dyToMouse = mouse.y - node.y;
@@ -137,30 +154,98 @@ const InteractiveGraph = () => {
           }
         }
 
-        // Integrate velocity, add gentle drift
         node.x += node.vx * delta;
         node.y += node.vy * delta;
-        node.vx *= 0.995; // friction
+        node.vx *= 0.995;
         node.vy *= 0.995;
         node.vx += Math.sin(node.twinkle) * 0.0015 * delta;
         node.vy += Math.cos(node.twinkle) * 0.0015 * delta;
         node.twinkle += 0.015 * delta;
 
-        // Screen bounds bounce
         if (node.x <= 0 || node.x >= innerWidth) node.vx *= -1;
         if (node.y <= 0 || node.y >= innerHeight) node.vy *= -1;
         node.x = Math.max(0, Math.min(innerWidth, node.x));
         node.y = Math.max(0, Math.min(innerHeight, node.y));
-
-        // Draw node
-        context.beginPath();
-        const twinkleRadius = node.r + Math.sin(node.twinkle) * 0.25;
-        context.arc(node.x, node.y, twinkleRadius, 0, Math.PI * 2);
-        context.fillStyle = nodeFill;
-        context.fill();
       }
 
-      // Draw edges
+      // 2) Hover detection & neighborhood building
+      let hoveredNodeIndex = -1;
+      let hoveredEdgeI = -1;
+      let hoveredEdgeJ = -1;
+      const neighborIndices = new Set();
+      const strongEdgeSet = new Set();
+      const mediumEdgeSet = new Set();
+      const edgeKey = (i, j) => (i < j ? `${i}-${j}` : `${j}-${i}`);
+
+      if (mouse.active) {
+        // Node hover (priority)
+        let minNodeDist = Infinity;
+        for (let i = 0; i < nodes.length; i += 1) {
+          const n = nodes[i];
+          const d = Math.hypot(mouse.x - n.x, mouse.y - n.y);
+          const threshold = Math.max(16, n.r * 3);
+          if (d < threshold && d < minNodeDist) {
+            hoveredNodeIndex = i;
+            minNodeDist = d;
+          }
+        }
+
+        // Edge hover if no node is hovered
+        if (hoveredNodeIndex === -1) {
+          const edgeThreshold = 8;
+          let minEdgeDist = Infinity;
+          for (let i = 0; i < nodes.length; i += 1) {
+            for (let j = i + 1; j < nodes.length; j += 1) {
+              const a = nodes[i];
+              const b = nodes[j];
+              const dx = a.x - b.x;
+              const dy = a.y - b.y;
+              const distance = Math.hypot(dx, dy);
+              if (distance < connectionDistance) {
+                const d = distancePointToSegment(mouse.x, mouse.y, a.x, a.y, b.x, b.y);
+                if (d < edgeThreshold && d < minEdgeDist) {
+                  minEdgeDist = d;
+                  hoveredEdgeI = i;
+                  hoveredEdgeJ = j;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // Build neighbor sets and edge highlight sets
+      if (hoveredNodeIndex !== -1) {
+        for (let j = 0; j < nodes.length; j += 1) {
+          if (j === hoveredNodeIndex) continue;
+          const a = nodes[hoveredNodeIndex];
+          const b = nodes[j];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d < connectionDistance) {
+            neighborIndices.add(j);
+            strongEdgeSet.add(edgeKey(hoveredNodeIndex, j));
+          }
+        }
+      } else if (hoveredEdgeI !== -1) {
+        strongEdgeSet.add(edgeKey(hoveredEdgeI, hoveredEdgeJ));
+        neighborIndices.add(hoveredEdgeI);
+        neighborIndices.add(hoveredEdgeJ);
+        const endpoints = [hoveredEdgeI, hoveredEdgeJ];
+        for (const e of endpoints) {
+          for (let k = 0; k < nodes.length; k += 1) {
+            if (k === e) continue;
+            const a = nodes[e];
+            const b = nodes[k];
+            const d = Math.hypot(a.x - b.x, a.y - b.y);
+            if (d < connectionDistance) {
+              neighborIndices.add(k);
+              mediumEdgeSet.add(edgeKey(e, k));
+            }
+          }
+        }
+      }
+
+      // 3) Draw edges (base then highlights via style)
       context.lineWidth = 1;
       for (let i = 0; i < nodes.length; i += 1) {
         for (let j = i + 1; j < nodes.length; j += 1) {
@@ -168,15 +253,56 @@ const InteractiveGraph = () => {
           const b = nodes[j];
           const dx = a.x - b.x;
           const dy = a.y - b.y;
-          const distance = Math.hypot(dx, dy);
-          if (distance < connectionDistance) {
-            const opacity = 1 - distance / connectionDistance;
-            context.strokeStyle = line.replace(/\d?\.\d+\)/, `${opacity * 0.9})`);
+          const dist = Math.hypot(dx, dy);
+          if (dist < connectionDistance) {
+            const opacity = 1 - dist / connectionDistance;
+            const key = edgeKey(i, j);
+            if (strongEdgeSet.has(key)) {
+              context.strokeStyle = strongEdge;
+              context.lineWidth = 1.6;
+            } else if (mediumEdgeSet.has(key)) {
+              context.strokeStyle = mediumEdge;
+              context.lineWidth = 1.2;
+            } else {
+              context.strokeStyle = line.replace(/\d?\.\d+\)/, `${Math.max(0.1, opacity * 0.9)})`);
+              context.lineWidth = 1;
+            }
             context.beginPath();
             context.moveTo(a.x, a.y);
             context.lineTo(b.x, b.y);
             context.stroke();
           }
+        }
+      }
+
+      // 4) Draw nodes (with highlights and rings)
+      for (let i = 0; i < nodes.length; i += 1) {
+        const node = nodes[i];
+        const baseRadius = node.r + Math.sin(node.twinkle) * 0.25;
+        let radius = baseRadius;
+        let fill = nodeFill;
+        const isEndpoint = i === hoveredEdgeI || i === hoveredEdgeJ;
+
+        if (i === hoveredNodeIndex) {
+          radius *= 1.8;
+          fill = highlightNode;
+        } else if (isEndpoint) {
+          radius *= 1.5;
+          fill = highlightNode;
+        }
+
+        context.beginPath();
+        context.arc(node.x, node.y, radius, 0, Math.PI * 2);
+        context.fillStyle = fill;
+        context.fill();
+
+        // Neighbor ring
+        if (neighborIndices.has(i) && i !== hoveredNodeIndex && !isEndpoint) {
+          context.beginPath();
+          context.arc(node.x, node.y, radius + 2, 0, Math.PI * 2);
+          context.strokeStyle = neighborNode;
+          context.lineWidth = 1.5;
+          context.stroke();
         }
       }
 
