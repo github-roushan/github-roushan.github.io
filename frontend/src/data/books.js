@@ -65,8 +65,7 @@ const books = [
       'A good architecture allows decisions to be deferred for as long as possible.'
     ],
     sessions: [
-      { from: 1, to: 60 },
-      { from: 61, to: 120 }
+      { from: 1, to: 10 }
     ]
   },
   {
@@ -84,7 +83,7 @@ const books = [
       'Program for today and design for tomorrow.'
     ],
     sessions: [
-      { from: 1, to: 352 }
+      { from: 1, to: 2 }
     ]
   }
 ];
